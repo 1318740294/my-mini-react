@@ -1,6 +1,6 @@
 ## mini-react (基于react17)  
 ### 拆分未以下几个模块：
-![示例图片](images/image.png)
+![示例图片](image/image.png)
 
 ### 大致的执行流程 
 
