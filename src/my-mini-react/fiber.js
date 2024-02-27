@@ -76,35 +76,35 @@ export function createRoot(element,container) {
     nextUnitOfWork = workInProgressRoot;
 }
 
-function performUnitOfWork(workInProgress){
-    if(!workInProgress.stateNode){
-        //若当前的 fiber 没有
-        workInProgress.stateNode =  renderDom(workInProgress.element)
-    }
-    let children = workInProgress.element?.props?.children;
-    let type = workInProgress.element?.type;
-    if(typeof type === 'function'){
-        // 当前 fiber 对应 React 组件时，对其 return 迭代
-        if(type.prototype.isReactComponent){
-            //类组件
-            // const { props, type:Comp } = workInProgress.element;
-            // const component = new Comp(props);
-            // const jsx = component.render();
-            // //这里函数返回的已经是一个 react.element 了
-            // // console.log('component---jsx',jsx);
-            // children = [jsx]
-
-            updateClassComponent(workInProgress)
-        }else{
-            //函数组件
-            // const { props, type:Fn } = workInProgress.element;
-            // const jsx = Fn(props);
-            // //这里函数返回的已经是一个 react.element 了
-            // // console.log('Fn---jsx',jsx);
-            // children = [jsx]
-            updateFunctionComponent(workInProgress)
+    function performUnitOfWork(workInProgress){
+        if(!workInProgress.stateNode){
+            //若当前的 fiber 没有
+            workInProgress.stateNode =  renderDom(workInProgress.element)
         }
-    }
+        let children = workInProgress.element?.props?.children;
+        let type = workInProgress.element?.type;
+        if(typeof type === 'function'){
+            // 当前 fiber 对应 React 组件时，对其 return 迭代
+            if(type.prototype.isReactComponent){
+                //类组件
+                // const { props, type:Comp } = workInProgress.element;
+                // const component = new Comp(props);
+                // const jsx = component.render();
+                // //这里函数返回的已经是一个 react.element 了
+                // // console.log('component---jsx',jsx);
+                // children = [jsx]
+
+                updateClassComponent(workInProgress)
+            }else{
+                //函数组件
+                // const { props, type:Fn } = workInProgress.element;
+                // const jsx = Fn(props);
+                // //这里函数返回的已经是一个 react.element 了
+                // // console.log('Fn---jsx',jsx);
+                // children = [jsx]
+                updateFunctionComponent(workInProgress)
+            }
+        }
 
     if(children || children === 0){
         // children 存在时，对 children 迭代
